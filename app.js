@@ -12,8 +12,14 @@ import routes from "./routes";
 import { globalVariables } from "./globalVariables"
 const app = express();
 
+// favicon
+import favicon from "serve-favicon";
+const dir_favicon = "favicon";
+import path from "path";
+
 //middle ware
 app.use(helmet());
+app.use(favicon(path.join(dir_favicon, 'favicon.ico')))
 app.set('view engine', "pug")
 app.use(cookie_parser());
 app.use(body_parser.json());
@@ -21,7 +27,6 @@ app.use(body_parser.urlencoded({extended: true}));
 app.use(morgan("combined"));
 
 app.use(globalVariables)
-
 // route
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);

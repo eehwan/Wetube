@@ -1,6 +1,10 @@
 header
   .header__column
-    <i class="fab fa-youtube"></i>WeTube
+    a(href=routes.home)
+      <i class="fab fa-youtube"></i>WeTube
+  .header__column
+    form(action="routes.search")
+      input(type= "text", placeholder="Search...", name="term")
   .header__column
     ul
       li
