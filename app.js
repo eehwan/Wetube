@@ -10,13 +10,12 @@ import videoRouter from "./Routers/videoRouter";
 import routes from "./routes";
 
 import { globalVariables } from "./globalVariables"
-const app = express();
-
-// favicon
+// for favicon
 import favicon from "serve-favicon";
 const dir_favicon = "favicon";
 import path from "path";
 
+const app = express();
 //middle ware
 app.use(helmet());
 app.use(favicon(path.join(dir_favicon, 'favicon.ico')))
