@@ -9,13 +9,13 @@ https://eehwan.github.io/Wetube/
 
 ## Pages:
 - [x] home
-- [ ] join
-- [ ] login
+- [x] join
+- [x] login
 - [ ] logout
 - [x] search
 - [ ] user detail
-- [ ] edit profile
+- [x] edit profile
 - [ ] change password
-- [ ] upload
+- [x] upload
 - [ ] video detail
 - [ ] edit video
