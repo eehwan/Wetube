@@ -13,7 +13,10 @@ export const postLogin = (req,res) => {
     res.status(400)
   }
 }
-export const logout = (req,res) => res.render("logout", {pageTitle: "LogOut"});
+export const logout = (req,res) => {
+  // todo: logout process
+  res.redirect(routes.home);
+}
 export const getJoin = (req,res) => res.render("join", {pageTitle: "Join"});
 export const postJoin = (req,res) => {
   const{

@@ -8,7 +8,8 @@ export const search = (req,res) => {
   res.render("search", {pageTitle: "Search", term, videos})
 };
 // videoRouter
-export const upload = (req,res) => {res.render("upload", {pageTitle: "Upload Video"});}
+export const getUpload = (req,res) => {res.render("upload", {pageTitle: "Upload Video"});}
+export const postUpload = (req,res) => {res.render("upload", {pageTitle: "postUpload Video"});}
 export const videoDetail = (req,res) => {
   const {
     params: {id}
