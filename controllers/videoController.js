@@ -1,5 +1,5 @@
 import { videos } from "../db"
-import { routes } from "../routes"
+import routes from "../routes"
 // globalRouter
 export const home = (req,res) => res.render("home", {pageTitle: "Home", videos});
 export const search = (req,res) => {
@@ -16,7 +16,7 @@ export const postUpload = (req,res) =>{
   } = req;
   // To do: upload and save video
   // res.render("video,{pageTitle: "postUpload Video", file, title, description});
-  res.redirect(routes.videoDetail(324393));
+  res.redirect(routes.videos + routes.videoDetail(324393));
 }
 export const videoDetail = (req,res) => {
   const {
