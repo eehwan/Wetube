@@ -9,7 +9,7 @@ import userRouter from "./Routers/userRouter";
 import videoRouter from "./Routers/videoRouter";
 import routes from "./routes";
 
-import { globalVariables } from "./globalVariables"
+import { localsMiddleware } from "./middlewares"
 // for favicon
 import favicon from "serve-favicon";
 const dir_favicon = "favicon";
@@ -25,7 +25,7 @@ app.use(body_parser.urlencoded({extended: true}));
 app.use(morgan("combined"));
 app.use(favicon(path.join(dir_favicon, 'favicon.ico')))
 
-app.use(globalVariables)
+app.use(localsMiddleware)
 // route
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
