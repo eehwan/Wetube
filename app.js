@@ -19,6 +19,7 @@ const app = express();
 //middle ware
 app.use(helmet({contentSecurityPolicy:false}));
 app.set('view engine', "pug")
+app.use("/uploads", express.static("uploads"));
 app.use(cookie_parser());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: true}));
