@@ -7,7 +7,7 @@ block content
   div.search__videos
     each item in videos
       +videoBlock({
-        videoFile: item.videoFile,
+        fileUrl: item.fileUrl,
         title: item.title,
         views: item.views
         })

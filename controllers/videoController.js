@@ -10,11 +10,18 @@ export const home = async(req,res) => {
     res.render("home", {pageTitle: "Home", videos: [] });
   }
 }
-export const search = (req,res) => {
-  const {
-    query: { term }
-  } = req
-  res.render("search", {pageTitle: "Search", term, videos})
+export const search = async(req,res) => {
+  try{
+    const {
+      query: { term }
+    } = req
+    const videos = await Video.find(
+      { title: term }
+    ).limit(10);
+    res.render("search", {pageTitle: "Search", term, videos})
+  } catch{
+    res.render("search", {pageTitle: "Home", videos: [] });
+  }
 };
 // videoRouter
 export const getUpload = (req,res) => {res.render("upload", {pageTitle: "Upload Video"});}
@@ -28,15 +35,40 @@ export const postUpload = async(req,res) =>{
     title,
     description
   });
-  // To do: upload and save video
-  // res.render("video,{pageTitle: "postUpload Video", file, title, description});
   res.redirect(routes.videos + routes.videoDetail(newVideo.id));
 }
-export const videoDetail = (req,res) => {
+export const videoDetail = async(req,res) => {
+  const{
+    params: {id}
+  } = req;
+  try{
+    const video = await Video.findById(id);
+    res.render("videoDetail", {pageTitle: "video Detail", video})
+  } catch{
+    res.redirect(routes.home)
+  }
+}
+export const getEditVideo = async(req,res) => {
   const {
     params: {id}
-  } = req
-  res.render("videoDetail", {pageTitle: "video Detail", id})
-}
-export const editVideo = (req,res) => res.render("editVideo", {pageTitle: "edit Video"});
+  } = req;
+  try{
+    const video = await Video.findById(id);
+    res.render("editVideo", {pageTitle: `Edit ${video.title}`, video})
+  } catch{
+    res.redirect(routes.home)
+  };
+};
+export const postEditVideo = async(req,res) => {
+  const {
+    params: {id},
+    body: {title, description}
+  } = req;
+  try{
+    await Video.findOneAndUpdate({ _id: id }, { title, description });
+    res.redirect(routes.videos + routes.videoDetail(id));
+  } catch{
+    res.redirect(routes.home)
+  };
+};
 export const deleteVideo = (req,res) => res.render("deleteVideo", {pageTitle: "delete Video"});
