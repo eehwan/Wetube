@@ -29,8 +29,8 @@ const routes = {
   search: SEARCH,
   // users
   users: USERS,
-  userDetail: id => {
-    if (id){
+  userDetail: (id) => {
+    if (id) {
       return `/${id}`;
     } else {
       return USER_DETAIL;
@@ -41,27 +41,27 @@ const routes = {
   // videos
   videos: VIDEOS,
   upload: UPLOAD,
-  videoDetail: id => {
-    if (id){
+  videoDetail: (id) => {
+    if (id) {
       return `/${id}`;
     } else {
       return VIDEO_DETAIL;
     }
   },
-  editVideo: id =>{
-    if (id){
-      return `/${id}/edit`
-    }else{
-      return EDIT_VIDEO
+  editVideo: (id) => {
+    if (id) {
+      return `/${id}/edit`;
+    } else {
+      return EDIT_VIDEO;
     }
   },
-  deleteVideo: id =>{
-    if(id){
-      return `/${id}/delete`
-    }else{
-      return DELETE_VIDEO
+  deleteVideo: (id) => {
+    if (id) {
+      return `/${id}/delete`;
+    } else {
+      return DELETE_VIDEO;
     }
-  }
+  },
 };
 
 export default routes;

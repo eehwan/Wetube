@@ -5,6 +5,8 @@ block content
   div.search__header
     p Searching for : #{term}
   div.search__videos
+    if videos.length === 0
+      h5 No Video Found
     each item in videos
       +videoBlock({
         fileUrl: item.fileUrl,
