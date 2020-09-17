@@ -38,9 +38,10 @@ export const postJoin = async (req, res, next) => {
         name,
         email,
       });
-      await User.register(newUser, password);
+      await User.register(newUser, password[0]);
       next();
-    } catch {
+    } catch (error) {
+      console.log(error);
       res.redirect(routes.home);
     }
   }

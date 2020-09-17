@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cookie_parser from "cookie-parser";
 import body_parser from "body-parser";
 import passport from "passport";
+import session from "express-session";
 
 import globalRouter from "./Routers/globalRouter";
 import userRouter from "./Routers/userRouter";
@@ -29,7 +30,14 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(favicon(path.join(dir_favicon, "favicon.ico")));
-
+// login
+app.use(
+  session({
+    resave: true,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(localsMiddleware);
