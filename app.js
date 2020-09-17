@@ -3,6 +3,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookie_parser from "cookie-parser";
 import body_parser from "body-parser";
+import passport from "passport";
 
 import globalRouter from "./Routers/globalRouter";
 import userRouter from "./Routers/userRouter";
@@ -12,8 +13,10 @@ import routes from "./routes";
 import { localsMiddleware } from "./middlewares";
 // for favicon
 import favicon from "serve-favicon";
-const dir_favicon = "favicon";
 import path from "path";
+const dir_favicon = "favicon";
+
+import "./passport";
 
 const app = express();
 //middle ware
@@ -24,9 +27,11 @@ app.use("/static", express.static("static"));
 app.use(cookie_parser());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
-app.use(morgan("combined"));
+app.use(morgan("dev"));
 app.use(favicon(path.join(dir_favicon, "favicon.ico")));
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(localsMiddleware);
 // route
 app.use(routes.home, globalRouter);

@@ -1,4 +1,6 @@
 import routes from "../routes";
+import User from "../models/User";
+import passport from "passport";
 
 // From globalRouter
 export const getLogin = (req, res) => {
@@ -6,18 +8,10 @@ export const getLogin = (req, res) => {
     pageTitle: "LogIn",
   });
 };
-export const postLogin = (req, res) => {
-  const {
-    body: { email, password },
-  } = req;
-  console.log(`❕ ${email}, ${password} ❕`);
-  // todo : confirm data from db
-  if (true) {
-    res.redirect(routes.home);
-  } else {
-    res.status(400);
-  }
-};
+export const postLogin = passport.authenticate("local", {
+  failureRedirect: routes.login,
+  successRedirect: routes.home,
+});
 export const logout = (req, res) => {
   // todo: logout process
   res.redirect(routes.home);
@@ -25,7 +19,7 @@ export const logout = (req, res) => {
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password },
   } = req;
@@ -39,8 +33,16 @@ export const postJoin = (req, res) => {
       password: password[0],
     });
   } else {
-    // to do : Register user, let user logIn
-    res.redirect(routes.home);
+    try {
+      const newUser = await User({
+        name,
+        email,
+      });
+      await User.register(newUser, password);
+      next();
+    } catch {
+      res.redirect(routes.home);
+    }
   }
 };
 
