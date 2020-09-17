@@ -12,7 +12,7 @@ import { onlyPublic, onlyPrivate } from "../middlewares";
 
 const globalRouter = express.Router();
 
-globalRouter.get("/", home);
+globalRouter.get("", home);
 globalRouter.get(routes.search, search);
 globalRouter.get(routes.join, onlyPublic, getJoin);
 globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
