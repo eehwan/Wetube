@@ -3,8 +3,10 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookie_parser from "cookie-parser";
 import body_parser from "body-parser";
+import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 
 import globalRouter from "./Routers/globalRouter";
 import userRouter from "./Routers/userRouter";
@@ -20,6 +22,7 @@ const dir_favicon = "favicon";
 import "./passport";
 
 const app = express();
+const CookieStore = MongoStore(session);
 //middle ware
 app.use(helmet({ contentSecurityPolicy: false }));
 app.set("view engine", "pug");
@@ -36,6 +39,7 @@ app.use(
     resave: true,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
+    store: new CookieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(passport.initialize());
