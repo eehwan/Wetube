@@ -15,7 +15,7 @@ import routes from "./routes";
 
 import { localsMiddleware } from "./middlewares";
 // for favicon
-import favicon from "serve-favicon";
+import serveFavicon from "serve-favicon";
 import path from "path";
 const dir_favicon = "favicon";
 
@@ -24,7 +24,7 @@ import "./passport";
 const app = express();
 const CookieStore = MongoStore(session);
 //middle ware
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(helmet());
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("static"));
@@ -32,7 +32,7 @@ app.use(cookie_parser());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-app.use(favicon(path.join(dir_favicon, "favicon.ico")));
+app.use(serveFavicon(path.join(dir_favicon, "favicon.ico")));
 // login
 app.use(
   session({
