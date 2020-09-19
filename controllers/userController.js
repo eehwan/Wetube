@@ -19,7 +19,7 @@ export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password },
   } = req;
-  console.log(`❕ ${name}, ${email}, ${password} ❕`);
+  // console.log(`❕ ${name}, ${email}, ${password} ❕`);
   if (password[0] != password[1]) {
     res.status(400);
     res.render("join", {
@@ -42,10 +42,32 @@ export const postJoin = async (req, res, next) => {
     }
   }
 };
-export const githubLogin = () => passport.authenticate("github");
-export const postGithubLogin = (req, res) => res.send(routes.home);
-export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
-  console.log(accessToken, refreshToken, profile, cb);
+export const githubLogin = passport.authenticate("github");
+export const postGithubLogin = (req, res) => res.redirect(routes.home);
+export const githubLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id, avatar_url, name, email },
+  } = profile;
+  try {
+    const user = await User.findOne({ name, email });
+    if (user) {
+      user.githubId = id;
+      user.avatarUrl = avatar_url;
+      user.save();
+      return cb(null, user);
+    } else {
+      const newUser = await User.create({
+        name,
+        email,
+        githubId: id,
+        avatarUrl: avatar_url,
+      });
+      console.log(user);
+      return cb(null, newUser);
+    }
+  } catch (error) {
+    return cb(error);
+  }
 };
 export const logout = (req, res) => {
   // todo: logout process
