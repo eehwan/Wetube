@@ -2,5 +2,6 @@ extends layouts/main.pug
 
 block content
   p=pageTitle
-  p=user
+  p=user || null
+  img(src=user.avatarUrl)
   a(href=routes.users+routes.editProfile) Edit Profile
