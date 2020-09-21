@@ -1,5 +1,6 @@
 extends layouts/main.pug
 
 block content
-  p userDetail
+  p=pageTitle
+  p=user
   a(href=routes.users+routes.editProfile) Edit Profile
