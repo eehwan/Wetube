@@ -76,15 +76,18 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 // From userRouter
-export const userDetail = (req, res) => {
+export const userDetail = async (req, res) => {
   const {
-    params: { user },
+    params: { id },
   } = req;
-  res.render("userDetail", { pageTitle: "user Detail", user });
+  await console.log(id);
+  res.render("userDetail", { pageTitle: "user Detail", user: id });
 };
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit Profile" });
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "change Password" });
-export const me = (req, res) =>
+export const getMe = (req, res) => {
+  console.log(req.user);
   res.render("userDetail", { pageTitle: "my Profile", user: req.user });
+};
