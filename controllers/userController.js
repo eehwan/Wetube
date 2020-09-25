@@ -80,14 +80,18 @@ export const userDetail = async (req, res) => {
   const {
     params: { id },
   } = req;
-  await console.log(id);
-  res.render("userDetail", { pageTitle: "user Detail", user: id });
+  try {
+    const user = await User.findOne({ _id: id });
+    res.render("userDetail", { pageTitle: "user Detail", user });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
 };
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit Profile" });
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "change Password" });
 export const getMe = (req, res) => {
-  console.log(req.user);
   res.render("userDetail", { pageTitle: "my Profile", user: req.user });
 };
