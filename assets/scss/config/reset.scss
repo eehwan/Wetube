@@ -124,6 +124,9 @@ table {
 }
 a {
   all: unset;
+  &:visited {
+    color: inherit;
+  }
   cursor: pointer;
 }
 

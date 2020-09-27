@@ -43,7 +43,7 @@ export const postJoin = async (req, res, next) => {
   }
 };
 export const githubLogin = passport.authenticate("github");
-export const postGithubLogin = (req, res) => res.redirect(routes.home);
+export const facebookLogin = passport.authenticate("facebook");
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id, avatar_url, name, email },
@@ -69,12 +69,26 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     return cb(error);
   }
 };
+export const facebookLoginCallback = async (accessToken, refreshToken, profile, cb) => {
+  try {
+    console.log(accessToken);
+    console.log(refreshToken);
+    console.log(profile);
+    console.log(cb);
+    return cb(null, null);
+  } catch (error) {
+    console.log(error);
+    return cb(error);
+  }
+};
+export const postAuthLogin = (req, res) => res.redirect(routes.home);
 export const logout = (req, res) => {
   // todo: logout process
   // req.session.destroy((error) => console.log(error));
   req.logout();
   res.redirect(routes.home);
 };
+
 // From userRouter
 export const userDetail = async (req, res) => {
   const {

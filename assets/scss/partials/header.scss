@@ -1,18 +1,25 @@
 .header {
   background-color: $red;
-  margin-bottom: 50px;
+  margin-bottom: 3rem;
   .header__wrapper {
-    padding: 5px 0px;
+    padding: 0.5rem 0;
     width: 100%;
     margin: 0 auto;
     max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
+    font-size: 1.2rem;
+    color: white;
     .header__column {
-      i {
-        color: white;
-        font-size: 30px;
+      &:first-child {
+        font-size: 1.3em;
+        font-weight: 600;
+        i {
+          font-size: 1.25em;
+          transform: translateY(10%);
+          padding: 0 0.2em;
+        }
       }
       &:nth-child(2) {
         width: 100%;
@@ -23,11 +30,10 @@
       }
       ul {
         display: flex;
-        color: white;
         font-weight: 600;
         text-transform: uppercase;
-        li:not(:last-child) {
-          margin-right: 15px;
+        li {
+          margin-right: 0.5em;
         }
       }
       form {
