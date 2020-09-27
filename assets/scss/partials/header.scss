@@ -2,23 +2,23 @@
   background-color: $red;
   margin-bottom: 3rem;
   .header__wrapper {
-    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    padding: 1em 0;
     width: 100%;
     margin: 0 auto;
     max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    font-size: 1.2rem;
     color: white;
     .header__column {
       &:first-child {
-        font-size: 1.3em;
+        font-size: 1.5em;
         font-weight: 600;
         i {
           font-size: 1.25em;
-          transform: translateY(10%);
-          padding: 0 0.2em;
+          transform: translateY(12%);
+          margin-right: 0.2em;
         }
       }
       &:nth-child(2) {
@@ -33,18 +33,18 @@
         font-weight: 600;
         text-transform: uppercase;
         li {
-          margin-right: 0.5em;
+          margin-right: 0.65em;
         }
       }
       form {
         width: 100%;
         input {
-          padding: 7px 10px;
+          font-size: 1.1em;
+          padding: 0.2em 0.5em;
           width: 100%;
           border-radius: 5px;
-          font-size: 14px;
           color: $black;
-          font-weight: 600;
+          font-weight: 400;
           max-width: none;
           &::placeholder {
             font-weight: 300;
