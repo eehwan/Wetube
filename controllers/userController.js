@@ -69,13 +69,28 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     return cb(error);
   }
 };
-export const facebookLoginCallback = async (accessToken, refreshToken, profile, cb) => {
+export const facebookLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id, picture, name, email },
+  } = profile;
+  console.log(profile);
+  console.log(picture, picture.data.url);
   try {
-    console.log(accessToken);
-    console.log(refreshToken);
-    console.log(profile);
-    console.log(cb);
-    return cb(null, null);
+    const user = await User.findOne({ name, email });
+    if (user) {
+      user.facebookId = id;
+      user.avatarUrl = picture.data.url;
+      user.save();
+      return cb(null, user);
+    } else {
+      const newUser = await User.create({
+        name,
+        email,
+        facebookId: id,
+        avatarUrl: picture.data.url,
+      });
+      return cb(null, newUser);
+    }
   } catch (error) {
     console.log(error);
     return cb(error);
