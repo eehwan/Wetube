@@ -3,6 +3,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookie_parser from "cookie-parser";
 import body_parser from "body-parser";
+import compression from "compression";
 import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
@@ -31,6 +32,7 @@ app.use("/static", express.static("static"));
 app.use(cookie_parser());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
+app.use(compression());
 app.use(morgan("dev"));
 app.use(serveFavicon(path.join(dir_favicon, "favicon.ico")));
 // login

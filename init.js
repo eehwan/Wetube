@@ -11,5 +11,4 @@ const PORT = process.env.PORT;
 
 const handleListening = () =>
   console.log(`✅ Listening on port: ${PORT} // ${new Date()}`);
-
 app.listen(PORT, handleListening);

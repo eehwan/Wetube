@@ -57,6 +57,7 @@
   "scripts": {
     "dev:server": "nodemon --exec babel-node init.js --delay 2 --ignore 'scss' ",
     "dev:assets": "cross-env WEBPACK_ENV=development webpack --watch",
-    "build:assets": "cross-env WEBPACK_ENV=production webpack"
+    "build:assets": "cross-env WEBPACK_ENV=production webpack",
+    "https": "ngrok http 5006"
   }
 }
