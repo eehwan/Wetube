@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import { expressCspHeader, INLINE, NONE, EVAL, SELF } from "express-csp-header";
 
 import globalRouter from "./Routers/globalRouter";
 import userRouter from "./Routers/userRouter";
@@ -35,6 +36,18 @@ app.use(body_parser.urlencoded({ extended: true }));
 app.use(compression());
 app.use(morgan("dev"));
 app.use(serveFavicon(path.join(dir_favicon, "favicon.ico")));
+app.use(
+  expressCspHeader({
+    directives: {
+      "default-src": [SELF, "https://use.fontawesome.com"],
+      "script-src": [SELF, INLINE, EVAL],
+      "style-src": [SELF, "https://use.fontawesome.com"],
+      "img-src": ["data:", "https://scontent-ssn1-1.xx.fbcdn.net"],
+      "worker-src": [NONE],
+      "block-all-mixed-content": true,
+    },
+  })
+);
 // login
 app.use(
   session({
