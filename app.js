@@ -39,10 +39,10 @@ app.use(serveFavicon(path.join(dir_favicon, "favicon.ico")));
 app.use(
   expressCspHeader({
     directives: {
-      "default-src": [SELF, "https://use.fontawesome.com"],
+      // "default-src": [SELF, "https://use.fontawesome.com"],
       "script-src": [SELF, INLINE, EVAL],
       "style-src": [SELF, "https://use.fontawesome.com"],
-      "img-src": ["data:", "https://scontent-ssn1-1.xx.fbcdn.net"],
+      // "img-src": ["data:", "https://scontent-ssn1-1.xx.fbcdn.net"],
       "worker-src": [NONE],
       "block-all-mixed-content": true,
     },
