@@ -11,11 +11,11 @@ https://eehwan.github.io/Wetube/
 - [x] home
 - [x] join
 - [x] login
-- [ ] logout
+- [x] logout
 - [x] search
 - [ ] user detail
 - [x] edit profile
 - [ ] change password
 - [x] upload
 - [x] video detail
-- [ ] edit video
+- [x] edit video
