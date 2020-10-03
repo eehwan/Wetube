@@ -18,11 +18,10 @@ export const onlyPublic = (req, res, next) => {
   }
 };
 export const onlyPrivate = (req, res, next) => {
-  console.log(req.user);
   if (req.user) {
     next();
   } else {
-    res.redirect(routes.home);
+    res.render("404", { pageTitle: "Erorr", message: "Please Login" });
   }
 };
 

@@ -38,11 +38,12 @@ export const postJoin = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res.render("404", { pageTitle: "Error", message: `${error}` });
+    res.render("404", { pageTitle: "Error", error });
   }
 };
 export const githubLogin = passport.authenticate("github");
 export const facebookLogin = passport.authenticate("facebook");
+export const kakaoLogin = passport.authenticate("kakao");
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id, avatar_url, name, email },
@@ -110,6 +111,36 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
     return cb(error);
   }
 };
+export const kakaoLoginCallback = async (_, __, profile, done) => {
+  try {
+    const id = profile._json.id;
+    const nickname = profile._json.properties.nickname;
+    const profile_image = profile._json.properties.profile_image;
+    // const {
+    //   _json: {
+    //     id,
+    //     properties: { nickname, profile_image },
+    //   },
+    // } = profile;
+    console.log(id, nickname, profile_image);
+    const user = await User.findOne({ id, loginType: "kakao" });
+    if (user) {
+      return done(null, user);
+    } else {
+      const newUser = await User.create({
+        name: nickname,
+        email: `kakao@${id}`,
+        kakaoId: id,
+        avatarUrl: profile_image,
+        loginType: "kakao",
+      });
+      return done(null, newUser);
+    }
+  } catch (error) {
+    console.log("error");
+    return done(error);
+  }
+};
 export const postAuthLogin = (req, res) => res.redirect(routes.home);
 export const logout = (req, res) => {
   req.logout();
@@ -126,11 +157,11 @@ export const userDetail = async (req, res) => {
     res.render("userDetail", { pageTitle: "user Detail", user });
   } catch (error) {
     console.log(error);
-    res.redirect(routes.home);
+    res.render("404", { pageTitle: "Error", error });
   }
 };
 export const editProfile = (req, res) =>
-  res.render("editProfile", { pageTitle: "edit Profile" });
+  res.render("editProfile", { pageTitle: "edit Profile", user: req.user });
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "change Password" });
 export const getMe = (req, res) => {
