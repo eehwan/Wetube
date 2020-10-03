@@ -22,24 +22,23 @@ export const postJoin = async (req, res, next) => {
   // console.log(`❕ ${name}, ${email}, ${password} ❕`);
   if (password[0] != password[1]) {
     res.status(400);
-    res.render("join", {
-      pageTitle: "Join",
+    return res.render("404", {
+      pageTitle: "Error",
+      message: "Please verify your PASSWORD",
+    });
+  }
+  try {
+    // shoul add email authentication
+    const newUser = User({
       name,
       email,
-      password: password[0],
+      loginType: "local",
     });
-  } else {
-    try {
-      const newUser = await User({
-        name,
-        email,
-      });
-      await User.register(newUser, password[0]);
-      next();
-    } catch (error) {
-      console.log(error);
-      res.redirect(routes.home);
-    }
+    await User.register(newUser, password[0]);
+    next();
+  } catch (error) {
+    console.log(error);
+    res.render("404", { pageTitle: "Error", message: `${error}` });
   }
 };
 export const githubLogin = passport.authenticate("github");
@@ -49,11 +48,17 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     _json: { id, avatar_url, name, email },
   } = profile;
   try {
-    const user = await User.findOne({ name, email });
+    const user = await User.findOneAndUpdate(
+      { email },
+      {
+        name,
+        email,
+        githubId: id,
+        avatarUrl: avatar_url,
+        loginType: "github",
+      }
+    );
     if (user) {
-      user.githubId = id;
-      user.avatarUrl = avatar_url;
-      user.save();
       return cb(null, user);
     } else {
       const newUser = await User.create({
@@ -61,6 +66,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
         email,
         githubId: id,
         avatarUrl: avatar_url,
+        loginType: "github",
       });
       console.log(user);
       return cb(null, newUser);
@@ -71,24 +77,32 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 };
 export const facebookLoginCallback = async (_, __, profile, cb) => {
   const {
-    _json: { id, picture, name, email },
+    _json: { id, name, email },
   } = profile;
-  console.log(profile);
-  console.log(picture, picture.data.url);
   try {
-    const user = await User.findOne({ name, email });
+    const user = await User.findOne({ email });
     if (user) {
-      user.facebookId = id;
-      user.avatarUrl = picture.data.url;
-      user.save();
+      await User.findOneAndUpdate(
+        { email },
+        {
+          name,
+          email,
+          facebookId: id,
+          avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`,
+          loginType: "facebook",
+        }
+      );
+      console.log(user);
       return cb(null, user);
     } else {
       const newUser = await User.create({
         name,
         email,
         facebookId: id,
-        avatarUrl: picture.data.url,
+        avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`,
+        loginType: "facebook",
       });
+      console.log(newUser);
       return cb(null, newUser);
     }
   } catch (error) {
@@ -98,8 +112,6 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
 };
 export const postAuthLogin = (req, res) => res.redirect(routes.home);
 export const logout = (req, res) => {
-  // todo: logout process
-  // req.session.destroy((error) => console.log(error));
   req.logout();
   res.redirect(routes.home);
 };
