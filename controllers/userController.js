@@ -15,12 +15,12 @@ export const postLogin = passport.authenticate("local", {
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
-export const postJoin = async (req, res, next) => {
+export const postJoin = async (req, res) => {
   const {
-    body: { name, email, password },
+    body: { name, email, password, password2 },
   } = req;
   // console.log(`❕ ${name}, ${email}, ${password} ❕`);
-  if (password[0] != password[1]) {
+  if (password != password2) {
     res.status(400);
     return res.render("404", {
       pageTitle: "Error",
@@ -34,8 +34,8 @@ export const postJoin = async (req, res, next) => {
       email,
       loginType: "local",
     });
-    await User.register(newUser, password[0]);
-    next();
+    await User.register(newUser, password);
+    postLogin(req, res);
   } catch (error) {
     console.log(error);
     res.render("404", { pageTitle: "Error", error });

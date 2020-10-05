@@ -19,10 +19,14 @@ const globalRouter = express.Router();
 
 globalRouter.get("", home);
 globalRouter.get(routes.search, search);
-globalRouter.get(routes.join, onlyPublic, getJoin);
-globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
-globalRouter.get(routes.login, onlyPublic, getLogin);
-globalRouter.post(routes.login, onlyPublic, postLogin);
+globalRouter
+  .route(routes.join)
+  .get(onlyPublic, getJoin)
+  .post(onlyPublic, postJoin);
+globalRouter
+  .route(routes.login)
+  .get(onlyPublic, getLogin)
+  .post(onlyPublic, postLogin);
 globalRouter.get(routes.github, onlyPublic, githubLogin);
 globalRouter.get(
   routes.githubCallback,
