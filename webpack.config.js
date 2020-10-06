@@ -14,20 +14,14 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
-            loader: "babel-loader",
-          },
-        ],
+        use: [{ loader: "babel-loader" }],
       },
       {
         test: /\.scss$/,
         use: [
           {
             loader: MiniExtractCSS.loader,
-            options: {
-              hmr: process.env.WEBPACK_ENV === "development",
-            },
+            options: { hmr: process.env.WEBPACK_ENV === "development" },
           },
           "css-loader",
           {
