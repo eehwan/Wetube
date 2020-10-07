@@ -15,7 +15,7 @@ export const postLogin = passport.authenticate("local", {
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
-export const postJoin = async (req, res) => {
+export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password2 },
   } = req;
@@ -35,7 +35,7 @@ export const postJoin = async (req, res) => {
       loginType: "local",
     });
     await User.register(newUser, password);
-    postLogin(req, res);
+    next();
   } catch (error) {
     console.log(error);
     res.render("404", { pageTitle: "Error", error });
@@ -147,7 +147,8 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-// From userRouter
+// From userRouter //
+
 export const userDetail = async (req, res) => {
   const {
     params: { id },
@@ -160,10 +161,10 @@ export const userDetail = async (req, res) => {
     res.render("404", { pageTitle: "Error", error });
   }
 };
+export const getMe = (req, res) => {
+  res.render("userDetail", { pageTitle: "my Profile", user: req.user });
+};
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit Profile", user: req.user });
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "change Password" });
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "my Profile", user: req.user });
-};

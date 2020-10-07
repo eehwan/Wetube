@@ -1,9 +1,14 @@
 extends layouts/main.pug
 
 block content
-  .user-profile
-    .user-profile__header
-      img.avatar(src=user.avatarUrl)
-      h4.profile__userName=user.name
-      h4.profile__userEmail=user.email
-  a.profile__edit(href=routes.users+routes.editProfile) Edit Profile
+    .user-profile
+        .user-profile__header
+            img.u-avatar(src=user.avatarUrl)
+            h4.profile__username=user.name
+            h4.profile__useremail=user.email
+        if user.id === loggedUser.id
+            .user-profile__btns
+                a(href=`/users${routes.editProfile}`)
+                    button ✏️ Edit Profile
+                a(href=`/users${routes.changePassword}`)
+                    button 🔒 Change Password 

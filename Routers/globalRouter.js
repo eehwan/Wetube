@@ -22,7 +22,7 @@ globalRouter.get(routes.search, search);
 globalRouter
   .route(routes.join)
   .get(onlyPublic, getJoin)
-  .post(onlyPublic, postJoin);
+  .post(onlyPublic, postJoin, postLogin);
 globalRouter
   .route(routes.login)
   .get(onlyPublic, getLogin)

@@ -17,9 +17,9 @@ import routes from "./routes";
 
 import { localsMiddleware } from "./middlewares";
 // for favicon
-import serveFavicon from "serve-favicon";
-import path from "path";
 const dir_favicon = "favicon";
+import path from "path";
+import serveFavicon from "serve-favicon";
 
 import "./passport";
 
