@@ -167,4 +167,7 @@ export const getMe = (req, res) => {
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit Profile", user: req.user });
 export const changePassword = (req, res) =>
-  res.render("changePassword", { pageTitle: "change Password" });
+  res.render("changePassword", {
+    pageTitle: "change Password",
+    user: req.user,
+  });
