@@ -38,6 +38,7 @@ export const postJoin = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
+    res.status(400);
     res.render("404", { pageTitle: "Error", error });
   }
 };
@@ -158,16 +159,49 @@ export const userDetail = async (req, res) => {
     res.render("userDetail", { pageTitle: "user Detail", user });
   } catch (error) {
     console.log(error);
+    res.status(400);
     res.render("404", { pageTitle: "Error", error });
   }
 };
 export const getMe = (req, res) => {
   res.render("userDetail", { pageTitle: "my Profile", user: req.user });
 };
-export const editProfile = (req, res) =>
-  res.render("editProfile", { pageTitle: "edit Profile", user: req.user });
-export const changePassword = (req, res) =>
-  res.render("changePassword", {
-    pageTitle: "change Password",
-    user: req.user,
-  });
+export const getEditProfile = (req, res) =>
+  res.render("editProfile", { pageTitle: "edit Profile" });
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file,
+  } = req;
+  try {
+    await User.findByIdAndUpdate(req.user, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl,
+    });
+    res.redirect(routes.users + routes.me);
+  } catch (error) {
+    res.render("editProfile", { pageTitle: "edit Profile" });
+  }
+};
+export const getChangePassword = (req, res) =>
+  res.render("changePassword", { pageTitle: "change Password" });
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 },
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      return res.render("404", {
+        pageTitle: "Error",
+        error: "Please verify your newPassword",
+      });
+    }
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.users + routes.me);
+  } catch (error) {
+    res.status(400);
+    res.render("404", { pageTitle: "Error", error });
+  }
+};
