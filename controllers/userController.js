@@ -58,21 +58,10 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
         githubId: id,
         avatarUrl: avatar_url,
         loginType: "github",
-      }
+      },
+      { upsert: true }
     );
-    if (user) {
-      return cb(null, user);
-    } else {
-      const newUser = await User.create({
-        name,
-        email,
-        githubId: id,
-        avatarUrl: avatar_url,
-        loginType: "github",
-      });
-      console.log(user);
-      return cb(null, newUser);
-    }
+    return cb(null, user);
   } catch (error) {
     return cb(error);
   }
@@ -82,31 +71,18 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
     _json: { id, name, email },
   } = profile;
   try {
-    const user = await User.findOne({ email });
-    if (user) {
-      await User.findOneAndUpdate(
-        { email },
-        {
-          name,
-          email,
-          facebookId: id,
-          avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`,
-          loginType: "facebook",
-        }
-      );
-      console.log(user);
-      return cb(null, user);
-    } else {
-      const newUser = await User.create({
+    const user = await User.findOneAndUpdate(
+      { email },
+      {
         name,
         email,
         facebookId: id,
         avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`,
         loginType: "facebook",
-      });
-      console.log(newUser);
-      return cb(null, newUser);
-    }
+      },
+      { upsert: true }
+    );
+    return cb(null, user);
   } catch (error) {
     console.log(error);
     return cb(error);
@@ -124,19 +100,18 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
     //   },
     // } = profile;
     console.log(id, nickname, profile_image);
-    const user = await User.findOne({ id, loginType: "kakao" });
-    if (user) {
-      return done(null, user);
-    } else {
-      const newUser = await User.create({
+    const user = await User.findOneAndUpdate(
+      { email: `kakao@${id}` },
+      {
         name: nickname,
         email: `kakao@${id}`,
         kakaoId: id,
         avatarUrl: profile_image,
         loginType: "kakao",
-      });
-      return done(null, newUser);
-    }
+      },
+      { upsert: true }
+    );
+    return done(null, user);
   } catch (error) {
     console.log("error");
     return done(error);
@@ -174,7 +149,7 @@ export const postEditProfile = async (req, res) => {
     file,
   } = req;
   try {
-    await User.findByIdAndUpdate(req.user, {
+    await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
       avatarUrl: file ? file.path : req.user.avatarUrl,
