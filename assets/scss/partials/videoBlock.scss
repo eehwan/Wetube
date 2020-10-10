@@ -1,4 +1,4 @@
-.home-videos {
+.home-videos{
   .videoBlock {
     .videoBlock__thumnail {
       margin-bottom: 0.6em;
@@ -15,32 +15,36 @@
       .videoBlock__detail__views {
         padding: 0 0.4em;
       }
+      .videoBlock__detail__creator {
+        padding: 0 0.4em;
+      }
     }
   }
 }
-.search {
+.search, .uploaded-videos {
   .videoBlock {
     border-top: 1px solid;
     padding: 1em 0;
-    a {
-      max-height: 30%;
+    max-height: 30%;
+    display: flex;
+    flex-direction: row;
+    .videoBlock__thumnail {
+      height: 20em;
+      margin-right: 1.5em;
+    }
+    .videoBlock__detail {
       display: flex;
-      flex-direction: row;
-      .videoBlock__thumnail {
-        height: 20em;
-        margin-right: 1.5em;
+      flex-direction: column;
+      font-size: 1.5em;
+      .videoBlock__detail__title {
+        font-size: 1.2em;
+        padding: 0.4em 0;
       }
-      .videoBlock__detail {
-        display: flex;
-        flex-direction: column;
-        font-size: 1.5em;
-        .videoBlock__detail__title {
-          font-size: 1.2em;
-          padding: 0.4em 0;
-        }
-        .videoBlock__detail__views {
-          padding: 0.4em 0;
-        }
+      .videoBlock__detail__views {
+        padding: 0.4em 0;
+      }
+      .videoBlock__detail__creator {
+        padding: 0.4em 0;
       }
     }
   }
