@@ -1,4 +1,5 @@
 extends layouts/main.pug
+include mixins/videoBlock.pug
 
 block content
     .user-profile
@@ -6,9 +7,19 @@ block content
             img.u-avatar(src=user.avatarUrl)
             h4.profile__username=user.name
             h4.profile__useremail=user.email
-        if user.id === loggedUser.id
+        if loggedUser && (loggedUser.id === user.id) 
             .user-profile__btns
                 a(href=`/users${routes.editProfile}`)
                     button ✏️ Edit Profile
                 a(href=`/users${routes.changePassword}`)
                     button 🔒 Change Password 
+        .uploaded-videos
+          |Uploaded Video
+          each item in user.videos
+            +videoBlock({
+              id : item.id,
+              fileUrl: `../${item.fileUrl}`,
+              title: item.title,
+              views: item.views,
+              creator: item.creator
+            })

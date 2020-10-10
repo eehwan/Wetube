@@ -4,7 +4,7 @@ import Video from "../models/Video";
 // From globalRouter
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({ _id: -1 });
+    const videos = await Video.find({}).sort({ _id: -1 }).populate("creator");
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(`❌ ${error}`);
@@ -18,7 +18,9 @@ export const search = async (req, res) => {
     } = req;
     const videos = await Video.find({
       title: { $regex: term, $options: "i" },
-    }).limit(10);
+    })
+      .limit(10)
+      .populate("creator");
     res.render("search", { pageTitle: "Search", term, videos });
   } catch {
     res.render("search", { pageTitle: "Home", videos: [] });
@@ -50,7 +52,7 @@ export const videoDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("creator");
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch {
     res.redirect(routes.home);
@@ -62,7 +64,11 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    if (req.user.id != video.creator) {
+      throw Error();
+    } else {
+      res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    }
   } catch {
     res.redirect(routes.home);
   }
@@ -73,7 +79,12 @@ export const postEditVideo = async (req, res) => {
     body: { title, description },
   } = req;
   try {
-    await Video.findOneAndUpdate({ _id: id }, { title, description });
+    const video = await Video.findById(id);
+    if (req.user.id != video.creator) {
+      throw Error();
+    } else {
+      await Video.findByIdAndUpdate({ title, description });
+    }
     res.redirect(routes.videos + routes.videoDetail(id));
   } catch {
     res.redirect(routes.home);
@@ -84,6 +95,10 @@ export const deleteVideo = async (req, res) => {
     params: { id },
   } = req;
   try {
+    const video = await Video.findById(id);
+    if (req.user.id != video.creator) {
+      throw Error();
+    }
     await Video.findOneAndRemove({ _id: id });
   } catch (error) {
     console.log(`❌ ${error}`);
