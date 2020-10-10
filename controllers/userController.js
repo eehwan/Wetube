@@ -51,7 +51,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
   } = profile;
   try {
     const user = await User.findOneAndUpdate(
-      { email },
+      { githubId: id },
       {
         name,
         email,
@@ -72,7 +72,7 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
   } = profile;
   try {
     const user = await User.findOneAndUpdate(
-      { email },
+      { facebookId: id },
       {
         name,
         email,
@@ -93,15 +93,9 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
     const id = profile._json.id;
     const nickname = profile._json.properties.nickname;
     const profile_image = profile._json.properties.profile_image;
-    // const {
-    //   _json: {
-    //     id,
-    //     properties: { nickname, profile_image },
-    //   },
-    // } = profile;
     console.log(id, nickname, profile_image);
     const user = await User.findOneAndUpdate(
-      { email: `kakao@${id}` },
+      { kakaoId: id },
       {
         name: nickname,
         email: `kakao@${id}`,
@@ -130,7 +124,7 @@ export const userDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const user = await User.findOne({ _id: id });
+    const user = await User.findOne({ _id: id }).populate("videos");
     res.render("userDetail", { pageTitle: "user Detail", user });
   } catch (error) {
     console.log(error);
