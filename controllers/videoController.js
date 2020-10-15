@@ -83,7 +83,7 @@ export const postEditVideo = async (req, res) => {
     if (req.user.id != video.creator) {
       throw Error();
     } else {
-      await Video.findByIdAndUpdate({ title, description });
+      await Video.findByIdAndUpdate(id, { title, description });
     }
     res.redirect(routes.videos + routes.videoDetail(id));
   } catch (error) {

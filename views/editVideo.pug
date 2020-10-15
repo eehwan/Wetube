@@ -3,7 +3,7 @@ extends layouts/main.pug
 block content
   div.form-container
     p=pageTitle
-    form(action=routes.videos+routes.editVideo(video.id), method="post")
+    form(method="post")
       input(type="text", name="title", placeholder="Title", value=video.title)
       textarea(name="description", placeholder="Description")=video.description
       input(type="submit", value="Update Video")
