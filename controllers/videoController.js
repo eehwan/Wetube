@@ -56,7 +56,8 @@ export const videoDetail = async (req, res) => {
       .populate("creator")
       .populate("comments");
     res.render("videoDetail", { pageTitle: video.title, video });
-  } catch {
+  } catch (error) {
+    console.log(error);
     res.redirect(routes.home);
   }
 };
@@ -135,7 +136,8 @@ export const addComment = async (req, res) => {
     const video = await Video.findById(id);
     const newComment = await Comment.create({
       text: comment,
-      creator: user.id,
+      creatorId: user.id,
+      creatorName: user.name,
     });
     video.comments.push(newComment._id);
     video.save();

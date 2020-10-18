@@ -38,4 +38,5 @@ block content
       ul.video__comments-list#jsCommentList
         each comment in video.comments.reverse()
           li
+            a(href=routes.users+routes.userDetail(comment.creatorId))=comment.creatorName
             span=comment.text
