@@ -5,7 +5,7 @@ const commentNumber = document.querySelector("#jsCommentNumber");
 
 const sendComment = async (comment) => {
   const videoId = window.location.href.split("/videos/")[1];
-  const response = axios({
+  const response = await axios({
     url: `/api/${videoId}/comment`,
     method: "POST",
     data: { comment },
@@ -16,9 +16,13 @@ const sendComment = async (comment) => {
 };
 const addComment = (comment) => {
   const li = document.createElement("li");
-  const span = document.createElement("span");
-  span.innerHTML = comment;
-  li.appendChild(span);
+  const UserNameField = document.createElement("a");
+  const TextField = document.createElement("span");
+  UserNameField.href = `/users/me`;
+  UserNameField.innerText = "me";
+  TextField.innerHTML = comment;
+  li.appendChild(UserNameField);
+  li.appendChild(TextField);
   commentList.prepend(li);
   increaseNumber();
 };
