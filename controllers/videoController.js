@@ -146,13 +146,55 @@ export const addComment = async (req, res) => {
       creatorId: user.id,
       creatorName: user.name,
     });
-    video.comments.push(newComment._id);
+    video.comments.push(newComment.id);
     video.save();
-    res.status(200);
+    req.user.comments.push(newComment.id);
+    req.user.save();
+    res.send({ userName: req.user.name, commentId: newComment.id });
   } catch (error) {
     console.log(error);
     res.status(400);
   } finally {
     res.end();
+  }
+};
+export const deleteComment = async (req, res) => {
+  if (req.method == "GET") {
+    const {
+      params: { videoId, commentId },
+    } = req;
+    try {
+      const comment = await Comment.findById(commentId);
+      if (!req.user || req.user.id != comment.creatorId) {
+        throw Error();
+      }
+      const idx = req.user.comments.indexOf(commentId);
+      req.user.comments.splice(idx, 1);
+      req.user.save();
+      await Comment.findByIdAndRemove(commentId);
+      res.redirect(routes.videos + routes.videoDetail(videoId));
+    } catch (error) {
+      console.log(error);
+      res.redirect(routes.home);
+    }
+  } else if (req.method == "POST") {
+    const {
+      params: { videoId, commentId },
+    } = req;
+    try {
+      const idx = req.user.comments.indexOf(commentId);
+      req.user.comments.splice(idx, 1);
+      req.user.save();
+      const video = await Video.findById(videoId);
+      const idx2 = video.comments.indexOf(commentId);
+      video.comments.splice(idx2, 1);
+      video.save();
+      res.status(200);
+    } catch (error) {
+      console.log(error);
+      res.status(400);
+    } finally {
+      res.end();
+    }
   }
 };

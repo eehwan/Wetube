@@ -39,6 +39,7 @@ const KAKAO_CALLBACK = "/auth/kakao/callback";
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
 const ADD_COMMENT = "/:id/comment";
+const DELETE_COMMENT = "/:videoId/:commentId/delete";
 
 const routes = {
   // global
@@ -94,6 +95,13 @@ const routes = {
   api: API,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
+  deleteComment: (videoId, commentId) => {
+    if (videoId && commentId) {
+      return `/${videoId}/${commentId}/delete`;
+    } else {
+      return DELETE_COMMENT;
+    }
+  },
 };
 
 export default routes;
