@@ -103,6 +103,9 @@ export const deleteVideo = async (req, res) => {
     if (req.user.id != video.creator) {
       throw Error();
     }
+    const idx = req.user.videos.indexOf(video.id);
+    req.user.videos.splice(idx, 1);
+    req.user.save();
     await Video.findOneAndRemove({ _id: id });
   } catch (error) {
     console.log(`❌ ${error}`);
