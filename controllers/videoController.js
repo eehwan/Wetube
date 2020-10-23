@@ -106,7 +106,11 @@ export const deleteVideo = async (req, res) => {
     const idx = req.user.videos.indexOf(video.id);
     req.user.videos.splice(idx, 1);
     req.user.save();
-    await Video.findOneAndRemove({ _id: id });
+    for (const comment of video.comments) {
+      console.log(comment);
+      await Comment.findByIdAndRemove(comment);
+    }
+    await Video.findByIdAndRemove(id);
   } catch (error) {
     console.log(`❌ ${error}`);
   }
