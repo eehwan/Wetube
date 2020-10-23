@@ -40,3 +40,5 @@ block content
           li
             a(href=routes.users+routes.userDetail(comment.creatorId))=comment.creatorName
             span=comment.text
+            if loggedUser && comment.creatorId == loggedUser.id
+              a(href=routes.api+routes.deleteComment(video.id, comment.id)) ❌

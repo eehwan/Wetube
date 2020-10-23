@@ -70,22 +70,27 @@
         width: 100%;
         padding: 0.65em 1em;
         display: grid;
-        grid-template-columns: 10em 1fr;
+        grid-template-columns: 10em 1fr auto;
         // hide scrollbar
         * {
           -ms-overflow-style: none;
           scrollbar-width: none;
+          box-sizing: border-box;
         }
         ::-webkit-scrollbar {
           display: none;
         }
         //
-        a {
+        a:first-child {
           height: auto;
           width: 10em;
           overflow-x: hidden;
           color: #3498db;
           padding-right: 1.5em;
+        }
+        a:last-child {
+          padding-left: 1em;
+          cursor: pointer;
         }
       }
     }

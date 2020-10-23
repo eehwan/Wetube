@@ -131,6 +131,8 @@ a {
 }
 
 *,
+*::before,
+*::after,
 input {
   box-sizing: border-box;
 }
