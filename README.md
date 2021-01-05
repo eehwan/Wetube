@@ -13,9 +13,9 @@ https://eehwan.github.io/Wetube/
 - [x] login
 - [x] logout
 - [x] search
-- [x] user detail
+- [ ] user detail
 - [x] edit profile
-- [x] change password
+- [ ] change password
 - [x] upload
 - [x] video detail
 - [x] edit video

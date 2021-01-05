@@ -1,4 +1,3 @@
-import path from "path";
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
@@ -20,6 +19,7 @@ import routes from "./routes";
 import { localsMiddleware } from "./middlewares";
 // for favicon
 const dir_favicon = "favicon";
+import path from "path";
 import serveFavicon from "serve-favicon";
 
 import "./passport";
@@ -29,9 +29,8 @@ const CookieStore = MongoStore(session);
 //middle ware
 app.use(helmet());
 app.set("view engine", "pug");
-// app.use("/uploads", express.static("uploads"));
-app.set("views", path.join(__dirname, "views"));
-app.use("/static", express.static(path.join(__dirname, "static")));
+app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 app.use(cookie_parser());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
