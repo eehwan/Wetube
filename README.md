@@ -1,4 +1,4 @@
-# Cloning Youtube with Vanilla-Js and NodeJS
+# Cloning Youtube with VanillaJS and NodeJS
 
 https://eehwan.github.io/Wetube/
 ## Using
@@ -6,16 +6,3 @@ https://eehwan.github.io/Wetube/
 - babel
 - pug
 - etc...
-
-## Pages:
-- [x] home
-- [x] join
-- [x] login
-- [x] logout
-- [x] search
-- [ ] user detail
-- [x] edit profile
-- [ ] change password
-- [x] upload
-- [x] video detail
-- [x] edit video
