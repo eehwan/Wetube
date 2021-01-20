@@ -28,7 +28,7 @@ export const postJoin = async (req, res, next) => {
     });
   }
   try {
-    // shoul add email authentication
+    // To do : should add email authentication
     const newUser = User({
       name,
       email,
@@ -98,7 +98,7 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
       { kakaoId: id },
       {
         name: nickname,
-        email: `kakao@${id}`,
+        email: `${id}@kakao`,
         kakaoId: id,
         avatarUrl: profile_image,
         loginType: "kakao",
