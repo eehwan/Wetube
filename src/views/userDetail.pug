@@ -18,7 +18,7 @@ block content
           each item in user.videos
             +videoBlock({
               id : item.id,
-              fileUrl: `../${item.fileUrl}`,
+              fileUrl: item.fileUrl,
               title: item.title,
               views: item.views,
               creator: item.creator
