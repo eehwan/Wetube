@@ -23,3 +23,7 @@ https://hidden-brushlands-84437.herokuapp.com/
 > You need ".env" file and inside the file, you need variables below
 
 [PORT, COOKIE_SECRET, MONGO_URL, MONGO_URL_PROD, AWS_KEY, AWS_SECRET, GITHUB_ID, GITHUB_SECRET, FACEBOOK_ID, FACEBOOK_SECRET, KAKAO_ID, KAKAO_SECRET]
+
+> npm run dev # for localhost:{PORT}
+
+> npm start # for your real server
