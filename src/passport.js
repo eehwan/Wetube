@@ -1,4 +1,4 @@
-const DOMAIN_URL = "https://hidden-brushlands-84437.herokuapp.com/";
+const DOMAIN_URL = process.env.PRODUCTION ? "https://hidden-brushlands-84437.herokuapp.com/" : `localhost:${process.env.PORT}`;
 
 import passport from "passport";
 import GithubStrategy from "passport-github";
