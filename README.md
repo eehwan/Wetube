@@ -14,4 +14,6 @@ https://hidden-brushlands-84437.herokuapp.com/
 - etc...
 
 ## Issues
-problems with github & facebook login
+- problems with github & facebook login
+- different sizes between uploaded videos
+- Notification about non-Commentable for non-logged user
