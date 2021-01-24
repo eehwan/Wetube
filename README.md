@@ -1,6 +1,6 @@
 # Cloning Youtube with NodeJS
 
-https://eehwan.github.io/Wetube/
+https://hidden-brushlands-84437.herokuapp.com/
 ## Using
 - express
 - babel
