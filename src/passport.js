@@ -1,5 +1,4 @@
-const DOMAIN_URL = "http://localhost:5006";
-// "https://1dde14d81430.ngrok.io";
+const DOMAIN_URL = "https://hidden-brushlands-84437.herokuapp.com/";
 
 import passport from "passport";
 import GithubStrategy from "passport-github";
