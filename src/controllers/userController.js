@@ -132,9 +132,6 @@ export const userDetail = async (req, res) => {
     res.render("404", { pageTitle: "Error", error });
   }
 };
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "my Profile", user: req.user });
-};
 export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit Profile" });
 export const postEditProfile = async (req, res) => {
