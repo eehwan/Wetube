@@ -17,6 +17,6 @@ header.header
           li
             a(href=routes.videos+routes.upload) Upload |
           li
-            a(href=routes.users+routes.me) Profile |
+            a(href=routes.users+routes.userDetail(loggedUser.id)) Profile |
           li
             a(href=routes.logout) LogOut |
