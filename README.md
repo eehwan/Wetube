@@ -20,9 +20,13 @@ https://hidden-brushlands-84437.herokuapp.com/
 
 ### When you want to clone this project
 
-> You need ".env" file and inside the file, you need variables below
+> First, you need ".env" file and you need variables below inside the file.
 
 [PORT, DOMAIN, COOKIE_SECRET, MONGO_URL, MONGO_URL_PROD, AWS_KEY, AWS_SECRET, GITHUB_ID, GITHUB_SECRET, FACEBOOK_ID, FACEBOOK_SECRET, KAKAO_ID, KAKAO_SECRET]
+
+> npm install
+
+to install all the node_modules
 
 > npm run dev
 
