@@ -1,6 +1,6 @@
 # Cloning Youtube with NodeJS
 
-https://eehwan-wetube.herokuapp.com/auth/facebook/callback
+https://eehwan-wetube.herokuapp.com/
 
 (It would take a minute to load the page at first)
 ## Using
