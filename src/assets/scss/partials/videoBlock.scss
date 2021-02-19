@@ -5,14 +5,14 @@
       max-width: 100%;
     }
     .videoBlock__detail {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 6em 5em;
       flex-direction: row;
       justify-content: space-between;
       height: 1.5em;
       .videoBlock__detail__title {
         font-size: 1.2rem;
-        padding: 0 0.4em;
-        width: 70%;
+        margin-right: 0.6em;
         overflow-x: hidden;
         white-space: nowrap;
         &::-webkit-scrollbar {
@@ -20,10 +20,16 @@
         }
       }
       .videoBlock__detail__creator {
-        padding: 0 0.4em;
+        // padding: 0 0.4em;
+        width: 6em;
+        overflow-x: hidden;
+        white-space: nowrap;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
       .videoBlock__detail__views {
-        padding: 0 0.4em;
+        margin-left: 0.6em;
       }
     }
   }
