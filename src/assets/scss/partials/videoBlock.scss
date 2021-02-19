@@ -8,14 +8,21 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      height: 1.5em;
       .videoBlock__detail__title {
         font-size: 1.2rem;
         padding: 0 0.4em;
-      }
-      .videoBlock__detail__views {
-        padding: 0 0.4em;
+        width: 70%;
+        overflow-x: hidden;
+        white-space: nowrap;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
       .videoBlock__detail__creator {
+        padding: 0 0.4em;
+      }
+      .videoBlock__detail__views {
         padding: 0 0.4em;
       }
     }
@@ -40,10 +47,10 @@
         font-size: 1.2em;
         padding: 0.4em 0;
       }
-      .videoBlock__detail__views {
+      .videoBlock__detail__creator {
         padding: 0.4em 0;
       }
-      .videoBlock__detail__creator {
+      .videoBlock__detail__views {
         padding: 0.4em 0;
       }
     }
