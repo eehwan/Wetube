@@ -6,7 +6,7 @@
     }
     .videoBlock__detail {
       display: grid;
-      grid-template-columns: 1fr 6em 5em;
+      grid-template-columns: 1fr 4.5em 5em;
       flex-direction: row;
       justify-content: space-between;
       height: 1.5em;
@@ -21,7 +21,6 @@
       }
       .videoBlock__detail__creator {
         // padding: 0 0.4em;
-        width: 6em;
         overflow-x: hidden;
         white-space: nowrap;
         &::-webkit-scrollbar {
@@ -30,6 +29,11 @@
       }
       .videoBlock__detail__views {
         margin-left: 0.6em;
+        overflow-x: hidden;
+        white-space: nowrap;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
   }
