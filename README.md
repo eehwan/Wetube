@@ -1,8 +1,10 @@
 # Cloning Youtube with NodeJS
 
-https://eehwan-wetube.herokuapp.com/
+[![HitCount](http://hits.dwyl.com/eehwan/Wetube.svg)](http://hits.dwyl.com/eehwan/Wetube)
+![GitHub last commit](https://img.shields.io/github/last-commit/eehwan/Wetube.svg)
 
-(It would take a minute to load the page at first)
+[**Website Link -** (It would take a minute to load the page at first)](https://eehwan-wetube.herokuapp.com/)
+
 ## Using
 - express
 - babel
